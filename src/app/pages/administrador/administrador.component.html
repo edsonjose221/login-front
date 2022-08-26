@@ -1,0 +1,38 @@
+<p-table [value]="usuario" responsiveLayout="scrollable" id="data" #data>
+    <ng-template pTemplate="caption">
+        <div class="flex table-header">
+            <div class="col-4 p-0">
+                <button pButton pRipple type="button" icon="pi pi-plus" (click)="dataUser('create')"></button>
+            </div>
+            <div class="col-4 text-center p-0">Usuários</div> 
+        </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+        <tr>
+            <th>ID</th>
+            <th>Email</th>
+            <th>Tipo de Usuário</th>
+            <th>Opções</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-usuario>
+        <tr>
+            <td>{{usuario.id}}</td>
+            <td>{{usuario.email}}</td>
+            <td>{{usuario.roles}}</td>
+            <td>
+                <button pButton pRipple type="button" icon="pi pi-pencil" (click)="dataUser('update', this.usuario)" class="p-button-rounded p-button-warning p-button-text"></button>
+                <button pButton pRipple type="button" icon="pi pi-times" (click)="dialogDelete(usuario.id)" class="p-button-rounded p-button-danger p-button-text"></button>
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+        <div class="flex align-items-center justify-content-between">
+          Tipo de Usuário: ADMIN
+        </div>
+    </ng-template>
+</p-table>  
+<p-confirmDialog
+  header="Confirmação"
+  icon="pi pi-exclamation-triangle">
+</p-confirmDialog>
