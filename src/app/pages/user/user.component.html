@@ -1,5 +1,5 @@
 <div>
-    <button pButton pRipple type="button" (click)="edit(usuario)" label="Editar" class="p-button-outlined p-button-warning mr-2"></button>
+    <button pButton pRipple type="button" (click)="editarUsuario(usuario)" label="Editar" class="p-button-outlined p-button-warning mr-2"></button>
     <button pButton pRipple type="button" (click)="messageDelete(usuario.id)" label="Deletar" class="p-button-outlined p-button-danger mr-2"></button>    
 </div>
 
@@ -9,11 +9,10 @@
         header="Bem vindo!"
         subheader="Seus dados"
         [style]="{ width: '60%' }"
-        styleClass="styleClass"
-      >
+        styleClass="styleClass">
         <div class="grid mt-2">
           <div class="col-6">Usuario: {{ usuario.email }}</div>
-          <div class="col-6 mb-3">Senha: {{ usuario.senha }}</div>
+        <div class="col-6 mb-3">Senha: {{ usuario.senha }}</div>
           <div class="col-6">Nome: {{ usuario.nome }}</div>
         </div>
         <p-footer> Tipo do perfil: {{ usuario.roles }} </p-footer>

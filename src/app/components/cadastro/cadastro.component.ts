@@ -13,8 +13,8 @@ import { UsuarioService } from 'src/app/core/service/usuario.service';
 export class CadastroComponent implements OnInit {
 
   formGroup: FormGroup;
-  op: string = '';
-  adm: string = '';
+  operacao: string = '';
+  admin: string = '';
   roles = [];
 
   constructor(
@@ -32,12 +32,12 @@ export class CadastroComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.op = this.dynamicDialogConf.data;
-    this.adm = this.dynamicDialogConf.data;
+    this.operacao = this.dynamicDialogConf.data.operacao;
+    this.admin = this.dynamicDialogConf.data.admin;
     this.getRoles();
 
-    if (this.op === 'update') {
-      this.editUser();
+    if (this.operacao === 'update') {
+      this.editarUsuario();
     }
   }
 
@@ -47,24 +47,24 @@ export class CadastroComponent implements OnInit {
     });
   }
 
-  saveData(): void {
+  salvarDados(): void {
     const value = this.formGroup.value;
     
     const request: IUsuario = {
       ... value
     };
 
-    if (this.op === 'update' && value.senha != null) {
+    if (this.operacao == 'update' && value.senha != null) {
       this.userService.editUser(request).subscribe(data => {
-        console.log(this.userService);
+        console.log(data);
         this.messageDialog();
-        this.dynamicDialogRef.destroy();
+        this.dynamicDialogRef.close(data);
       });  
     }
-    else if (this.op == 'create') {
-      this.userService.insertUser(request).subscribe(data => {
+    else if (this.operacao == 'create') {
+      this.userService.insertUser(request).subscribe( data => {
         this.messageDialog();
-        this.dynamicDialogRef.destroy();
+        this.dynamicDialogRef.close(data);
       });
     }
     else {
@@ -81,9 +81,9 @@ export class CadastroComponent implements OnInit {
     });
   }
 
-  editUser(): void {
-    this.formGroup.get('nome')?.patchValue(this.dynamicDialogConf.data.usuario.nome)
-    this.formGroup.get('email')?.patchValue(this.dynamicDialogConf.data.usuario.email)
-    this.formGroup.get('roles')?.patchValue(this.dynamicDialogConf.data.usuario.roles)
+  editarUsuario(): void {
+    this.formGroup.get('email')?.patchValue(this.dynamicDialogConf.data.usuario.email);
+    this.formGroup.get('roles')?.patchValue(this.dynamicDialogConf.data.usuario.roles);
+    this.formGroup.get('nome')?.patchValue(this.dynamicDialogConf.data.usuario.nome);
   }
 }

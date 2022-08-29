@@ -6,10 +6,9 @@ import { IUsuario } from 'src/app/core/interface/usuario';
 import { LoginService } from 'src/app/core/service/login.service';
 import { UsuarioService } from 'src/app/core/service/usuario.service';
 import { DialogService } from 'primeng/dynamicdialog';
-
-import { CadastroComponent } from '../cadastro/cadastro.component';
 import { MessageService } from 'primeng/api';
 
+import { CadastroComponent } from '../cadastro/cadastro.component';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -36,7 +35,7 @@ export class LoginComponent implements OnInit, OnDestroy{
   ngOnDestroy(): void {
   }
 
-  login(): void { 
+    login() {
     this.loading = true;
     this.loginService.login(this.usuario).subscribe((data) => {
       if (data) {
@@ -46,21 +45,25 @@ export class LoginComponent implements OnInit, OnDestroy{
 
         this.usuarioService.userLogged(this.usuario).subscribe(usuario => {
           this.usuario = usuario;
-          sessionStorage.setItem('usuario', `${this.usuario}`);
+          console.log(usuario);
+          sessionStorage.setItem('usuario', `${usuario.id}`);
           this.routerData();
         });
       }
-
+    },
+    err => {
+      this.loading = false;
+      this.messageService.add({severity:'error', summary: 'Error', detail: 'Usuário Inválido!', key: 'error'});
     });
   }
 
   routerData() {
     if (sessionStorage.getItem('token')) {
       if(this.usuario.roles === 'ADMIN') {
-        this.router.navigate(['/user/admin']);
+        this.router.navigate(['/usuario/admin']);
       }
       if (this.usuario.roles === 'USER'){
-        this.router.navigate(['/user/user']);
+        this.router.navigate(['/usuario/usuario']);
       }
       let logout = 'Logout';
       sessionStorage.setItem('logout', logout);

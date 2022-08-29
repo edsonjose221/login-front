@@ -9,7 +9,7 @@ import { IUsuario } from '../interface/usuario';
 })
 export class LoginService {
 
-  api: string = `${environment.api}/login`
+  api =`${environment.api}/login`
 
   constructor(private http: HttpClient) { }
 

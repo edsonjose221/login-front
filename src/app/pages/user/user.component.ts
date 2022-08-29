@@ -20,10 +20,10 @@ export class UserComponent implements OnInit {
   constructor(private userService: UsuarioService, private router: Router, private dialogService: DialogService, private confirmationService: ConfirmationService) { }
 
   ngOnInit(): void {
-    this.list();
+    this.listarUsuarios();
   }
 
-  list() {
+  listarUsuarios() {
     let id = sessionStorage.getItem('usuario')
     this.userService.listUsers(Number(id)).subscribe(data => {
       this.usuario = data;
@@ -34,28 +34,28 @@ export class UserComponent implements OnInit {
     this.confirmationService.confirm({
       message: 'Deseja deletar este usuário?',
       accept: () => {
-        this.delete(id);
+        this.excluirUsuario(id);
       }
     });
   }
 
-  delete(id: number) {
-    this.userService.deletarUsuario(id).subscribe(() => {
+  excluirUsuario(id: number) {
+    this.userService.deletarUsuario(id).subscribe(data => {
       this.router.navigate(['/login']);
     });
   }
 
-  edit(usuario: IUsuario) {
+  editarUsuario(usuario: IUsuario) {
     let reference = this.dialogService.open(CadastroComponent, {
       header: "Editar Usuário",
       width: '60%',
       data: {
-        op: 'update',
+        operacao: 'update',
         admin: 'admin',
         usuario: usuario
       }
     });
 
-    reference.onDestroy.subscribe(() =>  this.list());
+    reference.onDestroy.subscribe(data => this.listarUsuarios());
   }
 }

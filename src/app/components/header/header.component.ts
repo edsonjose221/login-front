@@ -18,7 +18,7 @@ export class HeaderComponent implements OnInit, DoCheck {
   ngOnInit(): void {
     this.item = [
       {label: 'Home', icon: 'pi pi-fw pi-home', routerLink: 'login'},
-      {label: 'Usuários', icon: 'pi pi-fw pi-user', routerLink: 'user/user'},
+      {label: 'Usuários', icon: 'pi pi-fw pi-user', routerLink: 'usuario/usuario'},
       {label: 'Novo Usuário', icon: 'pi pi-fw pi-plus', routerLink: 'cadastrar'},
     ]
   }
@@ -29,8 +29,8 @@ export class HeaderComponent implements OnInit, DoCheck {
     }
   }
 
-  cadastrar() {
-    this.router.navigate(['/cadastrar']);
+  login() {
+    this.router.navigate(['/login']);
     if (sessionStorage.getItem("logout") === 'Logout'){
       sessionStorage.clear();
     }

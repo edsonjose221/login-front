@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ConfirmationService, MessageService } from 'primeng/api';
+import { ConfirmationService } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
 import { CadastroComponent } from 'src/app/components/cadastro/cadastro.component';
 import { IUsuario } from 'src/app/core/interface/usuario';
@@ -13,19 +13,20 @@ import { UsuarioService } from 'src/app/core/service/usuario.service';
 })
 export class AdministradorComponent implements OnInit {
 
-  usuario = [] as IUsuario[];
+  usuarios = [] as IUsuario[];
+
   colunas: any[] = [];
+  loading: boolean = true;
 
   constructor(
     private usuarioService: UsuarioService,
-    private messageService: MessageService,
     private dialogService: DialogService,
     private confirmationService: ConfirmationService
   ) {
     this.colunas = [
       { title: 'id', dataKey: 'id'},
-      { title: 'email', dataKey: 'email'},
-      { title: 'senha', dataKey: 'senha'}
+      { title: 'Email', dataKey: 'email'},
+      { title: 'Senha', dataKey: 'senha'}
     ];
   }
 
@@ -36,7 +37,7 @@ export class AdministradorComponent implements OnInit {
   listerUsers(): void {
     let id = sessionStorage.getItem('usuario');
     this.usuarioService.listUsers(Number(id)).subscribe((data) => {
-      this.usuario = data;
+      this.usuarios = data;
     });
   }
 
@@ -44,13 +45,14 @@ export class AdministradorComponent implements OnInit {
     this.usuarioService.deletarUsuario(id).subscribe((data) => this.listerUsers());
   }
 
-  dataUser(op: string, usuario?: IUsuario): void {
+  dataUser(operacao: string, usuario?: IUsuario): void {
     let ref = this.dialogService.open(CadastroComponent, {
-      header: op === 'create' ? 'Cadastro' : 'Editar Informações',
+      header: operacao === 'create' ? 'Cadastro' : 'Editar Informações',
       width: '60%',
+      height: '130%',
       data: {
-        op: 'op',
-        adm: 'adm',
+        operacao: operacao,
+        admin: 'admin',
         usuario: usuario
       } 
     });
@@ -62,10 +64,14 @@ export class AdministradorComponent implements OnInit {
 
   dialogDelete(id: number): void {
     this.confirmationService.confirm({
-      message: `Do you really want to delete user?`,
+      message: `Você deseja deletar este usuário?`,
       accept: () => {
         this.deleteUser(id);
       },
     })
+  }
+
+  reload() {
+    window.location.reload();
   }
 }

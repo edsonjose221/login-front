@@ -4,5 +4,4 @@ export interface IUsuario {
     email: string;
     senha: string;
     roles: string;
-    ativo: boolean;
 }

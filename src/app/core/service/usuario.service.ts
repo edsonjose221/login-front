@@ -10,28 +10,28 @@ import { Observable } from 'rxjs';
 })
 export class UsuarioService {
 
-  api: string = `${environment.api}/api/user`
+  api =`${environment.api}/api/usuario`;
 
   constructor(private http: HttpClient) { }
 
   listUsers(id: number) {
-    return this.http.get<any>(`${this.api}/admin/list/${id}`)
+    return this.http.get<any>(`${this.api}/admin/listar/${id}`)
   }
 
   insertUser(user: IUsuario): Observable<IUsuario> {  
-    return this.http.post<IUsuario>(`${this.api}/save`, user)
+    return this.http.post<IUsuario>(`${this.api}/salvar`, user)
+  }
+
+  editUser(user: IUsuario) {
+    return this.http.put<IUsuario>(`${this.api}/editar`, user)
   }
 
   userLogged(user: IUsuario) {
     return this.http.post<IUsuario>(`${this.api}/logado`, user)
   }
 
-  editUser(user: IUsuario) {
-    return this.http.put<IUsuario>(`${this.api}/edit`, user)
-  }
-  
   deletarUsuario(id: number) {
-    return this.http.delete(`${this.api}/delete` + id);
+    return this.http.delete(`${this.api}/excluir/${id}`);
   }
 
   roles() {
