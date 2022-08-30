@@ -18,8 +18,8 @@ export class HeaderComponent implements OnInit, DoCheck {
   ngOnInit(): void {
     this.item = [
       {label: 'Home', icon: 'pi pi-fw pi-home', routerLink: 'login'},
-      {label: 'Usuários', icon: 'pi pi-fw pi-user', routerLink: 'usuario/usuario'},
-      {label: 'Novo Usuário', icon: 'pi pi-fw pi-plus', routerLink: 'cadastrar'},
+      {label: 'Usuários', icon: 'pi pi-fw pi-users', routerLink: 'usuario/usuario'},
+      {label: 'Admin', icon: 'pi pi-fw pi-user', routerLink: 'usuario/admin'},
     ]
   }
   

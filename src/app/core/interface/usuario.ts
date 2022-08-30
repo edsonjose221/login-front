@@ -3,5 +3,5 @@ export interface IUsuario {
     nome: string;
     email: string;
     senha: string;
-    roles: string;
+    userRoles: string;
 }

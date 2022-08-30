@@ -26,6 +26,7 @@ export class UserComponent implements OnInit {
   listarUsuarios() {
     let id = sessionStorage.getItem('usuario')
     this.userService.listUsers(Number(id)).subscribe(data => {
+      console.log(data);
       this.usuario = data;
     });
   }

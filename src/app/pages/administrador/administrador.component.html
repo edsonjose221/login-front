@@ -10,16 +10,18 @@
     <ng-template pTemplate="header">
         <tr>
             <th>ID</th>
+            <th>Nome</th>
             <th>Email</th>
             <th>Tipo de Usuário</th>
-            <th>Opções</th>
+            <th>Ações</th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-usuario>
         <tr>
             <td>{{usuario.id}}</td>
+            <td>{{usuario.nome}}</td>
             <td>{{usuario.email}}</td>
-            <td>{{usuario.roles}}</td>
+            <td>{{usuario.userRoles}}</td>
             <td>
                 <button pButton pRipple type="button" icon="pi pi-pencil" (click)="dataUser('update', this.usuario)" class="p-button-rounded p-button-warning p-button-text"></button>
                 <button pButton pRipple type="button" icon="pi pi-times" (click)="dialogDelete(usuario.id)" class="p-button-rounded p-button-danger p-button-text"></button>

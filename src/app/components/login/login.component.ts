@@ -47,6 +47,7 @@ export class LoginComponent implements OnInit, OnDestroy{
           this.usuario = usuario;
           console.log(usuario);
           sessionStorage.setItem('usuario', `${usuario.id}`);
+          this.messageService.add({severity:'success', summary: 'Sucesso', detail: 'Usuário logado!', key: 'success'});
           this.routerData();
         });
       }
@@ -59,10 +60,10 @@ export class LoginComponent implements OnInit, OnDestroy{
 
   routerData() {
     if (sessionStorage.getItem('token')) {
-      if(this.usuario.roles === 'ADMIN') {
+      if(this.usuario.userRoles === 'ADMIN') {
         this.router.navigate(['/usuario/admin']);
       }
-      if (this.usuario.roles === 'USER'){
+      if (this.usuario.userRoles === 'USER'){
         this.router.navigate(['/usuario/usuario']);
       }
       let logout = 'Logout';
