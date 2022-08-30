@@ -39,7 +39,7 @@ export class CadastroComponent implements OnInit {
     if (this.operacao === 'update') {
       this.editarUsuario()
     }
-  }
+  }  
 
   getRoles() {
     this.userService.roles().subscribe(data => {
